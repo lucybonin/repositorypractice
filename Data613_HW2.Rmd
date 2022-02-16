@@ -1,0 +1,128 @@
+---
+title: "Data 613 HW 2"
+author: "Lucy Bonin & Abigail Tata"
+date: "1/25/2022"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE}
+library(dplyr)
+library(tidyverse)
+library("matlab")
+```
+
+1) Write a function that will find the sum of the natural log, the common log and a log of base 2 for any given positive number. Use your function to find answers for the first five even integers.  Show all details and structure of your function.  You should get five answers. The first two answers are 1.994177 and 3.988354. (Your output should show the other three)
+
+```{r}
+log_sum<-function(x){
+  log<-log(x)
+  log10<-log10(x)
+  log2<-log2(x)
+  return(log+log10+log2)
+}
+
+for ( i in seq(from=2, by=2, length.out=5)){
+  print(log_sum(i))
+}
+
+
+```
+
+
+2) Use the if-else structure to print the statement "This is a big number" if the square of a value is greater than or equal to 100 and the following statement is printed if the square of the number is less than 100, "This is not a big number”. Use and show values of assignment and if-else structures that will output both statements.
+```{r}
+square <- function(x) { 
+  x2<-x^2
+  if (x2 >= 100) {
+    print("This is a big number")
+  } else {
+    print("This is not a big number")
+  }
+}
+square(6)
+square(10)
+square(25)
+```
+3. For the following if-else-if coding structure, make an adjustment so that it prints "Team A won"
+```{r}
+#we interpreted this question to mean change the number of goals scored by team A so that the if structure says they win
+
+team_A <- 3 # Number of goals scored by Team A
+team_B <- 2# Number of goals scored by Team B
+
+if (team_A > team_B){
+  print ("Team A won")
+} else if (team_A < team_B){
+  print ("Team B won")
+} else {
+  "Team A & B tied"
+}
+
+```
+4. Write an if- else if- else sequence of commands that will output the following statements and appropriate output; If a value is divisible by 3 and 5 the output statement is "divisible by Three and Five", If a value is divisible by 3 and 4, the output statement is "divisible by Three and Four, If a value is a number that
+does not fall into either category, the output statement should be  "neither". Use your function to show output statements for values 16, 45, and 24.
+
+```{r}
+divisible<-function(x){
+  if (x %% 3 == 0 & x %% 5 == 0) {
+    print("divisible by Three and Five")
+  }
+  else if (x %% 3 == 0 & x %% 4 == 0 ) {
+    print("divisible by Three and Four")
+  }
+  else {
+    print("neither")
+  }
+}
+divisible(16)
+divisible(45)
+divisible(24)
+```
+5. Use piping and a dplyr command show and use R code to produce the following modified mpg data table that contains only quantitative variables
+```{r}
+data(mpg)
+
+mpg %>% 
+  select(displ,cyl,cty,hwy)->mpg2
+mpg2
+
+mpgvar <- vector("double", ncol(mpg2))  # 1. output
+ for (i in seq_along(mpg2)) {            # 2. sequence
+   mpgvar[[i]] <- var(mpg2[[i]])      # 3. body
+ }
+ mpgvar
+```
+6) Construct a for loop (as illustrated in the notes) that will produce the difference between the cube and the square for each prime number between 10 and 30.  
+```{r}
+for (i in c(11,13,17,19,23,29)) {
+  sq<-i^2
+  cube<-i^3
+  print(cube-sq)
+}
+```
+
+
+  
+```{r}  
+#a second way we thought to do this question that's a little more complex:
+  for ( x in 10:30) {
+  if (isprime(x)==1) {
+    result<-(x^3)-(x^2)
+  x+1
+  }
+else {
+    next
+  }
+  print(result)
+  }
+```
+
+
+
+
